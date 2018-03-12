@@ -4,6 +4,7 @@ import './App.css';
 import Axios from 'axios';
 import Cheerio from 'cheerio';
 import Parser, { processNodes, convertNodeToElement, htmlparser2 } from 'react-html-parser';
+import {Helmet} from "react-helmet";
 
 
 class App extends Component {
@@ -21,12 +22,16 @@ class App extends Component {
   render() {
 	  let press = this.state.press;
 	  let $ = Cheerio.load(press);
+	  let head = $('head').html();
 	  let header = $('header').html();
 	  let page = $('#page').html();
 	  let footer = $('footer').html();
-	  console.log(header);
+	  console.log(typeof head);
     return (
       <div className="App">
+        <Helmet>
+		{Parser(head)}
+        </Helmet>
       	<Header mark={header} />
       </div>
     );
