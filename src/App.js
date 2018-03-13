@@ -21,18 +21,22 @@ class App extends Component {
 	}
   render() {
 	  let press = this.state.press;
+	  console.log(press);
 	  let $ = Cheerio.load(press);
 	  let head = $('head').html();
 	  let header = $('header').html();
-	  let page = $('#page').html();
-	  let footer = $('footer').html();
-	  console.log(typeof head);
+	  let main = $('#main').html();
+	  let footer = $('#footer').html();
     return (
       <div className="App">
         <Helmet>
 		{Parser(head)}
         </Helmet>
+	<div id="page">
       	<Header mark={header} />
+      	<Main mark={main} />
+	<Footer mark={footer} />
+	</div>
       </div>
     );
   }
@@ -40,6 +44,12 @@ class App extends Component {
 
 function Header(props) {
 	return <header>{Parser(props.mark)}</header>
+}
+function Main(props) {
+	return <main id="main">{(Parser(props.mark))}</main>
+}
+function Footer(props) {
+	return <footer>{Parser(props.mark)}</footer>
 }
 
 export default App;
